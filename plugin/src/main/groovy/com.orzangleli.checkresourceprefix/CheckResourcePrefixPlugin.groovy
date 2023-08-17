@@ -11,7 +11,7 @@ import com.google.gson.JsonParser
 import com.orzangleli.checkresourceprefix.output.OutputResource
 import com.orzangleli.checkresourceprefix.output.OutputResourceDetail
 import com.sun.mail.smtp.SMTPTransport
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException
+//import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Plugin
 import org.gradle.api.Project

@@ -1,12 +1,11 @@
-apply plugin: 'java-library'
-apply plugin: 'groovy'
-apply plugin: "maven"
-
-// 是否发布打 jcenter
-def JCENTER = true
-if (JCENTER) {
-    apply plugin: 'com.novoda.bintray-release'
+plugins{
+    id 'java-library'
+    id 'groovy'
+    id 'maven-publish'
 }
+
+group = "com.orzangleli"
+version = "0.0.3"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -28,6 +27,7 @@ sourceSets {
         }
     }
 }
+tasks.withType(Copy).all { duplicatesStrategy 'exclude' }
 
 //将src文件夹中的资源文件同时打包
 processResources {
@@ -36,30 +36,19 @@ processResources {
     }
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
 
-if (JCENTER) {
-    publish {
-        userOrg = 'orzangleli'
-        groupId = 'com.orzangleli'
-        artifactId = 'checkresourceconflict'
-        publishVersion = '0.0.2'
-        desc = 'An Android Gradle Plugin For Checking Conflict Resources'
-        website = 'https://github.com/hust201010701/CheckResourceConflict'
-    }
-} else {
-    // 本地仓库
-    uploadArchives{
-        repositories.mavenDeployer{
-            // 本地仓库路径
-            repository(url: uri('file://Users/LocalRepository'))
-            // 唯一标识
-            pom.groupId = "com.orzangleli"
-            // 项目名称
-            pom.artifactId = "checkresourceconflict"
-            // 版本号
-            pom.version = "0.0.2-SNAPSHOT"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.orzangleli'
+            artifactId = 'checkresourceconflict-offline'
+            version = '0.0.3'
+
+            from components.java
         }
     }
 }
